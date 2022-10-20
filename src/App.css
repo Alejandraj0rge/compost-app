@@ -1,38 +1,123 @@
+.overlay {
+	height: 100%;
+	width: 0;
+	position: fixed;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	background-color: #E7FFCF;
+	background-color: #E7FFCF;
+	overflow-x: hidden; 
+	transition: 0.10s;
+}
+
+.overlay-content {
+	position: relative;
+	top: 25%; 
+	width: 100%;
+	text-align: center; 
+	margin-top: 30px; 
+}
+
+.overlay #welcome-title{
+	padding: 8px;
+	text-decoration: none;
+	font-size: 42px;
+	color: #818181;
+	display: block; 
+	transition: 0.3s; 
+}
+
+.overlay a:hover, .overlay a:focus {
+	color: #f1f1f1;
+}
+
+.overlay .closebtn {
+	position: absolute;
+	top: 20px;
+	right: 45px;
+	font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+	.overlay a {font-size: 20px}
+	.overlay .closebtn {
+		font-size: 40px;
+		top: 15px;
+		right: 35px;
+	}
+} 
+
+#variables-form {
+	display: flex;
+	flex-direction: column;
+}
+
+#variable-name {
+	font-size: 18px;
+	padding-right: 10px;
+}
+
+#variable-value {
+	font-size: 36px;
+}
+
+#sim-btn {
+	padding: 20px;
+	font-size: 36px;
+	text-align: center;
+	border-radius: 20px;
+	border-bottom: solid 10px black;
+	border-right: solid  10px black;
+	border-left: solid  2px black;
+	border-top: solid  2px black;
+	background-color: darksalmon;
+}
+
+#sim-btn:hover {
+	border-bottom: solid 2px black;
+	border-right: solid  2px black;
+	border-left: solid  2px black;
+	border-top: solid  2px black;
+	background-color: darksalmon;
+}
+
+#wiki-fact {
+	padding: 20px;
+	font-size: large;
+	text-align: center;
+	border-radius: 10px;
+	border: solid 5px black;
+}
+
 .App {
-  text-align: center;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	height: 100vh;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#myNav {
+	display: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+#variable-content {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	margin:50px;
+	justify-content:center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+#column-3 {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	margin:50px
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#animation {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
