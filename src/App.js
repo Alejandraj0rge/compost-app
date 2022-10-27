@@ -1,53 +1,50 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {db} from './firebaseConfig';
-import {collection, getDocs, addDoc, setDoc, updateDoc, deleteDoc, doc} from "firebase/firestore";
+import {collection, getDocs/* , addDoc, setDoc, updateDoc, deleteDoc, doc */} from "firebase/firestore";
+import { Stars, OrbitControls/* , Cloud, Text3D */} from '@react-three/drei'
+import { Canvas} from '@react-three/fiber';
 import './App.css';
 
+function Box() {
+	return (
+		<mesh>
+			<boxBufferGeometry attach="geometry"/>
+			<meshLambertMaterial attach="material" color="hotpink"/>
+		</mesh>
+	)
+}
+ 
 function App() {
+
 	const [temperatures, setTemperatures] =  useState([]);
-	const usersCollectionRef = collection(db, "temperatures");
 	
  	useEffect(() => {
 		const getTemperature = async () => {
 
-			var data = [
-				{
-					label: 'Temperature',
-					type: 'celsius',
-					variable: 'temperature'
-				},
-				{
-					label: 'Humidity',
-					type: 'percentage',
-					variable: 'humidity'
-				},
-				{
-					label: 'CO2',
-					type: 'ppm',
-					variable: 'co2'
-				},
-				{
-					label: 'pH',
-					type: 'integer',
-					variable: 'ph'
-				}
-			];
 			try {
-				const washingtonRef = collection(db, "compost_variables");
-/* 				const docRef = await addDoc(washingtonRef, {
-					label: 'Temperature',
-					type: 'celsius',
-					variable: 'temperature'
-				});  */
-				var docRef = await getDocs(collection(db, "compost_variables"));
-				var data = [];
-		 		docRef.forEach((doc) => {
-					console.log(doc.data());
-					data = data.concat(doc.data());
-				}); 
-				setTemperatures(data);
+				var variablesDoc = await getDocs(collection(db, "compost_variables"));
+				var sensorDoc = await getDocs(collection(db, "sensor_data"));
 
-				console.log(temperatures);
+				var sensorData = [];
+
+				sensorDoc.forEach((doc) => {
+					sensorData = sensorData.concat(doc.data());
+				});
+
+				console.log(sensorData);
+
+				var data = [];
+
+				variablesDoc.forEach((doc) => {
+					var docData = doc.data();
+					docData.value = sensorData[0][docData.variable]
+					data = data.concat(docData);
+				}); 
+
+				console.log(data);
+
+				setTemperatures(data);
+				
 			} catch (e) {
 				console.error("Error adding document: ", e);
 			}
@@ -59,26 +56,30 @@ function App() {
 	return (
 		<div className="App"/*  style="display:flex;" */>
 			<div id="myNav" className="overlay">
-				<a href="javascript:void(0)" className="closebtn" /* onClick="closeNav()" */>&times;</a>
+				<a href="" className="closebtn" /* onClick="closeNav()" */>&times;</a>
 				<div className="overlay-content">
-					<a id='welcome-title' href="#">Welcome to compost project</a>
+					<a id='welcome-title' href="">Welcome to compost project</a>
 				</div> 
 			</div>
 			<div id='animation'>
-				animation 
+				<Canvas>
+	 	 			<OrbitControls/>
+					<Stars/>
+					<ambientLight intensity={0.5}/>
+					<spotLight position={[10, 15, 10]} angle={0.3}/> 
+					<Box/> 
+				</Canvas>
+				{/* <img src="compost-app\src\photo1665517962.jpeg" alt="Girl in a jacket" width="500" height="600"></img> */}
 			</div>
 			<div id='variables-form'>
 				<div>
-					<div id='variable-content'><div id='variable-name'>stage:</div> <div id='variable-value'>mesofile</div></div>
-					<div><div>temperature:</div> <div>35*</div></div>
-					<div><div>humidity:</div><div>20%</div></div>
-					<div><div>CO2:</div> <div>5.3</div></div>
-					<div><div>ph:</div> <div>5.3</div></div>
+					{temperatures.map((temperature) => 
+						<div id='variable-content'><div id='variable-name'>{temperature.label}:</div> <div id='variable-value'>{temperature.value}</div></div>)}
 				</div>
 			</div>
 			<div id='column-3'>
 				<div id='wiki-fact'>random wiki</div>
-				<div id='sim-btn'>follow a sim</div>
+				{/* <div id='sim-btn'>follow a sim</div> */}
 			</div>
 		</div>
 	);

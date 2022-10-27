@@ -1,3 +1,7 @@
+body{
+	background-color: /* #E7FFCF */ black;
+}
+
 .overlay {
 	height: 100%;
 	width: 0;
@@ -5,8 +9,8 @@
 	z-index: 1;
 	left: 0;
 	top: 0;
-	background-color: #E7FFCF;
-	background-color: #E7FFCF;
+	background-color: /* #E7FFCF */ #050506;
+	background-color: /* #E7FFCF */ #050506;
 	overflow-x: hidden; 
 	transition: 0.10s;
 }
@@ -51,15 +55,23 @@
 #variables-form {
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	color: #818181;
 }
 
 #variable-name {
 	font-size: 18px;
 	padding-right: 10px;
+	justify-content: start;
 }
 
 #variable-value {
-	font-size: 36px;
+	font-size: 50px;
+	justify-content: end;
+	width: 100%;
+	display: flex;
 }
 
 #sim-btn {
@@ -71,7 +83,7 @@
 	border-right: solid  10px black;
 	border-left: solid  2px black;
 	border-top: solid  2px black;
-	background-color: darksalmon;
+	background-color: white;
 }
 
 #sim-btn:hover {
@@ -104,9 +116,6 @@
 #variable-content {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	margin:50px;
-	justify-content:center;
 }
 
 #column-3 {
