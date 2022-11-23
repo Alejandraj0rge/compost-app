@@ -1,4 +1,4 @@
-#Compost app
+##Compost app
 
 This app is an automatization of compost process with firebase, react, three.js and ESP32. I made a fun cube that is movable through the zxy axis.
 
